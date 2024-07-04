@@ -1,7 +1,46 @@
-import React, { useEffect, useRef, useCallback } from "react";
-
+import React, { useEffect, useRef, useCallback, useState } from "react";
+import debounceFn from "lodash.debounce";
 import { loadGoogleMapScript, isBrowser } from "./utils";
 import { GOOGLE_MAP_SCRIPT_BASE_URL } from "./constants";
+
+function useGoogleMapsApi(config) {
+  const [isApiLoaded, setApiLoaded] = useState(false);
+  
+  const loadGoogleMapsApi = (url) => {
+    if (!window.google) {
+      const script = document.createElement('script');
+      script.src = url;
+      script.async = true;
+      script.defer = true;
+      script.addEventListener('load', () => {
+        // The Google Maps API has been loaded and is now available
+        setApiLoaded(true);
+      });
+      document.body.appendChild(script);
+    } else {
+      setApiLoaded(true);
+    }
+  };
+
+  const debouncedFunction = useCallback(
+    debounceFn((url) => {
+      loadGoogleMapsApi(url)
+    }, config.debounce), // Adjust the debounce delay as needed
+    []
+  );
+
+  useEffect(() => {
+    if (config.url) {
+      debouncedFunction(config.url);
+    }
+
+    return () => {
+      debouncedFunction.cancel();
+    };
+  }, [config, debouncedFunction]);
+
+  return isApiLoaded;
+}
 
 export default function usePlacesWidget(props) {
   const {
@@ -10,6 +49,7 @@ export default function usePlacesWidget(props) {
     apiKey,
     libraries = "places",
     inputAutocompleteValue = "new-password",
+    debounce = 500,
     options: {
       types = ["(cities)"],
       componentRestrictions,
@@ -30,12 +70,14 @@ export default function usePlacesWidget(props) {
   const autocompleteRef = useRef(null);
   const observerHack = useRef(null);
   const languageQueryParam = language ? `&language=${language}` : "";
-  const googleMapsScriptUrl = `${googleMapsScriptBaseUrl}?libraries=${libraries}&key=${apiKey}${languageQueryParam}`;
-
-  const handleLoadScript = useCallback(
-    () => loadGoogleMapScript(googleMapsScriptBaseUrl, googleMapsScriptUrl),
-    [googleMapsScriptBaseUrl, googleMapsScriptUrl]
-  );
+  const googleMapsScriptUrl = `${googleMapsScriptBaseUrl}?libraries=${libraries}&key=${apiKey}${languageQueryParam}&loading=async`;
+  
+  // const handleLoadScript = useCallback(
+  //   () => loadGoogleMapScript(googleMapsScriptBaseUrl, googleMapsScriptUrl),
+  //   [googleMapsScriptBaseUrl, googleMapsScriptUrl]
+  // );
+  
+  const isLoaded = useGoogleMapsApi({ url: googleMapsScriptUrl, debounce });
 
   useEffect(() => {
     const config = {
@@ -62,7 +104,7 @@ export default function usePlacesWidget(props) {
       if (!google.maps?.places)
         return console.error("Google maps places API must be loaded.");
 
-      if (!(inputRef.current instanceof HTMLInputElement))
+      if (!inputRef.current instanceof HTMLInputElement)
         return console.error("Input ref must be HTMLInputElement.");
 
       autocompleteRef.current = new google.maps.places.Autocomplete(
@@ -86,14 +128,12 @@ export default function usePlacesWidget(props) {
       }
     };
 
-    if (apiKey) {
-      handleLoadScript().then(() => handleAutoComplete());
-    } else {
+    if (isLoaded) {
       handleAutoComplete();
     }
 
     return () => (event.current ? event.current.remove() : undefined);
-  }, []);
+  }, [isLoaded]);
 
   // Autofill workaround adapted from https://stackoverflow.com/questions/29931712/chrome-autofill-covers-autocomplete-for-google-maps-api-v3/49161445#49161445
   useEffect(() => {

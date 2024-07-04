@@ -13,6 +13,7 @@ function ReactGoogleAutocomplete(props) {
     googleMapsScriptBaseUrl,
     refProp,
     language,
+    debounce,
     ...rest
   } = props;
 
@@ -24,7 +25,8 @@ function ReactGoogleAutocomplete(props) {
     libraries,
     inputAutocompleteValue,
     options,
-    language
+    language,
+    debounce
   });
 
   return <input ref={ref} {...rest} />;
@@ -53,6 +55,7 @@ ReactGoogleAutocomplete.propTypes = {
     types: PropTypes.arrayOf(PropTypes.string),
   }),
   language: PropTypes.string,
+  debounce: PropTypes.number,
 };
 
 export default forwardRef((props, ref) => (

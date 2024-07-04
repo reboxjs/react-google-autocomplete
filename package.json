@@ -1,5 +1,5 @@
 {
-  "name": "react-google-autocomplete",
+  "name": "@cdmbase/react-google-autocomplete",
   "version": "2.7.3",
   "description": "React component for google autocomplete.",
   "main": "index.js",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ErrorPro/react-google-autocomplete.git"
+    "url": "git+https://github.com/reboxjs/react-google-autocomplete.git"
   },
   "keywords": [
     "react",
@@ -36,22 +36,22 @@
   "author": "Ven Korolev",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ErrorPro/react-google-autocomplete/issues"
+    "url": "https://github.com/reboxjs/react-google-autocomplete/issues"
   },
-  "homepage": "https://github.com/ErrorPro/react-google-autocomplete#readme",
+  "homepage": "https://github.com/reboxjs/react-google-autocomplete#readme",
   "dependencies": {
     "lodash.debounce": "^4.0.8",
-    "prop-types": "^15.5.0"
+    "prop-types": "^15.8.1"
   },
   "peerDependencies": {
     "react": ">=16.8.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.13.16",
-    "@babel/core": "^7.14.0",
-    "@babel/preset-env": "^7.14.0",
-    "@babel/preset-react": "^7.13.13",
-    "@types/google.maps": "^3.44.3",
-    "babel-preset-minify": "^0.5.1"
+    "@babel/cli": "^7.24.7",
+    "@babel/core": "^7.24.7",
+    "@babel/preset-env": "^7.24.7",
+    "@babel/preset-react": "^7.24.7",
+    "@types/google.maps": "^3.55.11",
+    "babel-preset-minify": "^0.5.2"
   }
 }
