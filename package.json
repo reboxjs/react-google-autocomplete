@@ -1,6 +1,6 @@
 {
   "name": "@cdmbase/react-google-autocomplete",
-  "version": "2.7.3-6",
+  "version": "2.7.3-7",
   "description": "React component for google autocomplete.",
   "main": "index.js",
   "types": "index.d.ts",
