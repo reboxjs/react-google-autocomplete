@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useCallback, useState } from "react";
-import  { debouse as debounceFn } from "lodash-es";
+import  { debounce as debounceFn } from "lodash-es";
 import { loadGoogleMapScript, isBrowser } from "./utils.js";
 import { GOOGLE_MAP_SCRIPT_BASE_URL } from "./constants.js";
 
