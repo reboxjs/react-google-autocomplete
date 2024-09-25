@@ -4,11 +4,11 @@ import esbuild from 'esbuild';
 // Use top-level await to handle the promise returned by esbuild.build
 try {
   await esbuild.build({
-    entryPoints: ['src/**/**'], // Specify multiple entry points if necessary
+    entryPoints: ['src/**/*.js', 'src/**/*.jsx'], // Exclude .d.ts files by specifying only JS and JSX files
     outdir: 'lib',
     minify: false,
     sourcemap: false,
-    loader: { '.js': 'jsx', '.ts': 'tsx' },
+    loader: { '.js': 'jsx'},
     splitting: false, // Ensure splitting is disabled for separate file output
     format: 'esm', // Or 'cjs', depending on your target module system
     // Additional options...

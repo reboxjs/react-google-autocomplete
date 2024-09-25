@@ -1,6 +1,6 @@
 {
   "name": "@cdmbase/react-google-autocomplete",
-  "version": "2.7.3-3",
+  "version": "2.7.3-5",
   "description": "React component for google autocomplete.",
   "main": "index.js",
   "types": "index.d.ts",
@@ -8,7 +8,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "node esbuild.config.js",
-    "build:clean": "rimraf ./lib"
+    "build:clean": "rimraf ./lib",
+    "build:copyFiles": "cp -rf package.json LICENSE.md README.md index.d.ts src/usePlacesAutocompleteService.d.ts lib/.",
+    "dist": "cd lib && yarn publish",
+    "dist:prepare": "yarn run build:clean && yarn run build && yarn run build:copyFiles"
   },
   "repository": {
     "type": "git",
@@ -42,14 +45,14 @@
   },
   "homepage": "https://github.com/reboxjs/react-google-autocomplete#readme",
   "dependencies": {
-    "lodash.debounce": "^4.0.8",
     "prop-types": "^15.8.1"
   },
   "publishConfig": {
     "access": "public"
   },
   "peerDependencies": {
-    "react": ">=16.8.0"
+    "react": ">=16.8.0",
+    "lodash-es": "^4.17.21"
   },
   "devDependencies": {
     "@babel/cli": "^7.24.7",
@@ -59,6 +62,7 @@
     "@types/google.maps": "^3.55.11",
     "babel-preset-minify": "^0.5.2",
     "esbuild": "^0.20.1",
+    "lodash-es": "^4.17.21",
     "rimraf": "3.0.0"
   }
 }

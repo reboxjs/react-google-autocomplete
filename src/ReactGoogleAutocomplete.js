@@ -1,7 +1,7 @@
 import React, { forwardRef } from "react";
 import PropTypes from "prop-types";
 
-import usePlacesWidget from "./usePlacesWidget";
+import usePlacesWidget from "./usePlacesWidget.js";
 
 function ReactGoogleAutocomplete(props) {
   const {

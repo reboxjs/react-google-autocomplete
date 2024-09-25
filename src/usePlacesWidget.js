@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useCallback, useState } from "react";
-import debounceFn from "lodash.debounce";
-import { loadGoogleMapScript, isBrowser } from "./utils";
-import { GOOGLE_MAP_SCRIPT_BASE_URL } from "./constants";
+import { debounce } from "lodash-es";
+import { loadGoogleMapScript, isBrowser } from "./utils.js";
+import { GOOGLE_MAP_SCRIPT_BASE_URL } from "./constants.js";
 
 function useGoogleMapsApi(config) {
   const [isApiLoaded, setApiLoaded] = useState(false);
@@ -23,7 +23,7 @@ function useGoogleMapsApi(config) {
   };
 
   const debouncedFunction = useCallback(
-    debounceFn((url) => {
+    debounce((url) => {
       loadGoogleMapsApi(url)
     }, config.debounce), // Adjust the debounce delay as needed
     []
