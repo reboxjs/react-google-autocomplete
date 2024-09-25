@@ -6,7 +6,8 @@
       {
         "targets": {
           "ie": "11"
-        }
+        },
+        "modules": false  // This ensures Babel outputs ESM
       }
     ]
     // TODO: Minify breaks IE 11

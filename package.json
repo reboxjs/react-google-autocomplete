@@ -1,12 +1,14 @@
 {
   "name": "@cdmbase/react-google-autocomplete",
-  "version": "2.7.3-1",
+  "version": "2.7.3-3",
   "description": "React component for google autocomplete.",
   "main": "index.js",
   "types": "index.d.ts",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "babel src/ --out-dir lib"
+    "build": "node esbuild.config.js",
+    "build:clean": "rimraf ./lib"
   },
   "repository": {
     "type": "git",
@@ -55,6 +57,8 @@
     "@babel/preset-env": "^7.24.7",
     "@babel/preset-react": "^7.24.7",
     "@types/google.maps": "^3.55.11",
-    "babel-preset-minify": "^0.5.2"
+    "babel-preset-minify": "^0.5.2",
+    "esbuild": "^0.20.1",
+    "rimraf": "3.0.0"
   }
 }
