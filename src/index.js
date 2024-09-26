@@ -1,2 +1,2 @@
-export { default } from "./ReactGoogleAutocomplete";
-export { default as usePlacesWidget } from "./usePlacesWidget";
+export { default } from "./ReactGoogleAutocomplete.js";
+export { default as usePlacesWidget } from "./usePlacesWidget.js";

@@ -1,8 +1,8 @@
 import { useEffect, useCallback, useRef, useState } from "react";
-import debounceFn from "lodash.debounce";
+import { debounce as debounceFn } from "lodash-es";
 
-import { isBrowser, loadGoogleMapScript } from "./utils";
-import { GOOGLE_MAP_SCRIPT_BASE_URL } from "./constants";
+import { isBrowser, loadGoogleMapScript } from "./utils.js";
+import { GOOGLE_MAP_SCRIPT_BASE_URL } from "./constants.js";
 
 export default function usePlacesAutocompleteService({
   apiKey,
